@@ -1,0 +1,28 @@
+RevNew 3 - Normal optimiazation
+RevNew 4 - High cost on Body sway
+Rev 16 - High cost on displacement of ankle after perturbation (wCPG)
+Rev 17 - High cost on Energy consumption (wCPG)
+RevInv 21 - Inv. Optimisation, combined disturbances (forward,backward,left,right), only cost on closeness to torques. DataSet: Set24Pert38_48
+RevInv 24 - Inv. Opt, combined disturbances (forward backward, left right, cost on closeness, nAnkle, wAnkle, wAnkleCPG. DataSet Set24Pert18_48 (bug in Set24Pert38_48)
+RevInv 26 - Inv. Opt, combined all disturbances (forward (4x), backward (4x), inside (1x), outside (4x). Cost on closeness, Nankle, wAnkle, wAnkleCPG. DataSet Set24PertCombAll
+RevFor 32 - For. Opt, combining all disturbances (forward (200N), backward, inside outside). cost on stable, energy efficient walking
+RevNewInv 35 - Inv. Opt, combined all disturbances at slow speed (forward (4x), backward (4x), no inside due to cross step, outside (4x). Cost on closeness, Nankle, wAnkle, wAnkleCPG. DataSet Set13PertCombAllnIns
+Rev42NewHyb - Hybrid Opt. Combining all disturbances in Inverse Opt. for fast speeds (no inside). Cost on closeness. If mean_diff is less than 2.5 sigma, Forward opt is done. Forward opt without perturbations for 15s (5sec trancient effects, 10 seconds to walk stably). Final cost (no fall/stable walking) on energy and speed (contains a bug! Speed was not done absolute, so slower speeds gives lower cost)
+REv42HybWindows - Hybrid Opt, starting point Rev42, on a windows com, with a very low sigma. Only cost was slightly different (now with abs diff on velocity, cost on velocity diff was 3 instead of 10)
+Rev46Hyb - Hybrid Opt. Combining all disturbances in Inverse Opt. for fast speeds (no inside). Cost on closeness. If mean_diff is less than 3 sigma, Forward opt is done. Forward opt without perturbations for 15s (5sec trancient effects, 10 seconds to walk stably). Final cost (no fall/stable walking) on energy and absolute speed. 
+Rev51Hyb - Hybrid Opt. Combining all dists. in inverse, for fast speed (no inside), cost on closenesse, MeanDiff <2 means switch, Forward opt is done. Forward opt with perturbations for 15s (5sec trancient effects, 10 seconds to walk stably, two dist types (front and sag)). Final cost (no fall/stable walking) on energy and absolute speed and stability after dist. No stable walking found!
+Rev55Hyb - Hybrid Opt. Combining all dists. in inverse, for fast speed (no inside), cost on closenesse, MeanDiff <2 means switch, Forward opt is done. Forward opt with perturbations for 15s (5sec trancient effects, 10 seconds to walk stably, two dist types (front and sag)). Final cost (no fall/stable walking) on energy and absolute speed and stability after dist. NaN Changed to cost. No stable walking found!
+Rev65Hyb - Hybrid Opt. Combining all disturbances in Inverse Opt. for slow (0.65 m/s) speeds (no inside). Cost on closeness. If mean_diff is less than 2.5 sigma, Forward opt is done. Forward opt with perturbations (for/outside, 125N) for 25s (5sec trancient effects, 10 seconds to walk stably, 10 after dist). Final cost (no fall/stable walking) on stability, energy and absolute speed. Bug on Loads, trial needs to be redone
+Rev71Hyb - Hybrid Opt. Combining all disturbances in Inverse Opt. for slow (0.65 m/s) speeds (no inside). Cost on closeness. If mean_diff is less than 2 sigma, Forward opt is done. Forward opt without perturbations for 15s (5sec trancient effects, 10 seconds to walk stably. Final cost (no fall/stable walking) on energy and absolute speed. No Result
+Rev73Hyb - Hybrid Opt. Combining all disturbances in Inverse Opt. for slow (0.65 m/s) speeds (no inside). Cost on closeness. If mean_diff is less than 1.75 sigma, Forward opt is done. Forward opt without perturbations for 15s (5sec trancient effects, 10 seconds to walk stably. Final cost (no fall/stable walking) on energy and absolute speed. No Result
+Rev81For - Robust forward optimization with 4 disturbances
+Rev84Hyb - Hybrid Opt. Combining all disturbances in Inverse Opt. for slow (0.65 m/s) speeds (no inside). Cost on closeness. If mean_diff is less than 2.75 sigma, Forward opt is done. Forward opt without perturbations for 15s (5sec trancient effects, 10 seconds to walk stably. Final cost (no fall/stable walking) on energy and absolute speed. Result
+Rev91IIDHyb - Hybrid opt, all dist in inverse for slow speed, cost on closeness, switch at sigma is 2.5. Forward opt without dist, no result. 
+Rev94IIDHyb - Inverse Opt, all dist in inverse for set24nIns
+Rev100IIDHyb - Inverse Opt, all dist in inverse for set13nIns
+Rev103For - Forward Opt, Standing still upright, (angle = 0), No Stable config found however can stand still for 8 sec.
+Rev106For - Forward Opt, standing still, with 10 degrees of leg spread.
+Rev117For - Foward Opt, standing still with 10 degrees of leg spread, RonL/LonR term removed (leg is not forced to got to swing, instead stays on ground). Standing for 10 sec. possible, before falling sideways. Might be due to initia stance being somewhat adducted in both legs.
+Rev121For - Forward Opt, Standing still without spread, no XonX
+Rev128For - Forward Opt, Standing still, spread, variable XonX with threshold (sag 0.225, front 0.125) and with CPG on ankle
+Rev132For - Forward Opt, Standing still, spread, no hip adduction, no special result or succes

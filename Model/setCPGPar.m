@@ -18,7 +18,11 @@
 % May 2016
 
 %% CPG
+<<<<<<< HEAD
 CPG_On = 0;         % CPG_On = 0 turns off CPG assistance
+=======
+CPG_On = 1;         % CPG_On = 0 turns off CPG assistance
+>>>>>>> Git init
 N_start = 7;        % Number of steps before CPG starts
 N_record = 3;       % Number of steps averaged for CPG
 CPGSize = 100;      % Size of the learned shape
