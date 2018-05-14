@@ -1,0 +1,10 @@
+# Ignoring all Figures
+Model/Figures/
+Model/Records/
+Model/OptData/
+Model/Simulations/
+Model/HumanData/
+Model/RecordsFolder/
+Model/nms_3Dmodel_for_wAnkleCPG_acc.mexa64
+Model/slprj/
+
