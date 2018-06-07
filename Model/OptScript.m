@@ -71,8 +71,12 @@ while i_opts <= tot_run
         end
 =======
 %         load('param_V103_for_wAnkleCPG.mat');
+<<<<<<< HEAD
         load('param_02cm.mat');
 >>>>>>> Git init
+=======
+        load('param_02cm_IMP.mat');
+>>>>>>> updated model for 1.3 m/s, optimized ankle impedance
         x_zero = param;
     else
         load(['Simulations/Sim',num2str(i_opts-1),'/cmaes_var.mat'],'out')
@@ -121,10 +125,14 @@ while i_opts <= tot_run
     
     %% Sigma list
 <<<<<<< HEAD
+<<<<<<< HEAD
     sigma_list = ones(90+SetOptIC*11+SetOptIMP*3,1);
 =======
     sigma_list = ones(90,1);
 >>>>>>> Git init
+=======
+    sigma_list = ones(93,1);
+>>>>>>> updated model for 1.3 m/s, optimized ankle impedance
     sigma_list(1) = 0.56;
     sigma_list([2:4 73:75]) = 0.025;
     sigma_list(5) = 0.03;
@@ -135,6 +143,7 @@ while i_opts <= tot_run
     sigma_list([71 72 89 90]) = 0.22;
     sigma_list = sigma_list .* 2; 
 <<<<<<< HEAD
+<<<<<<< HEAD
     if SetOptIC
         sigma_list([91 100 101]) = [0.1 0.05 0.02];
         sigma_list(92:98) = 0.2;
@@ -144,6 +153,9 @@ while i_opts <= tot_run
     end
 =======
 >>>>>>> Git init
+=======
+    sigma_list([91 92 93]) = [0.5 0.05 0.5];
+>>>>>>> updated model for 1.3 m/s, optimized ankle impedance
     
     % Ankle Module
     sigma_list(36) = 0.05;

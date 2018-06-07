@@ -22,10 +22,10 @@ param = param(1:90);
 warning('off','all') % Needed for speed (Simulink gives warnings)
 
  load('paramIC_02cm');	% paramIC
- load('param_02cm');	% param
-%  load('param_V103_for_wAnkleCPG');	% param
+%  load('param_02cm');	% param
+ %load('param_V103_for_wAnkleCPG');	% param
  
-if size(param,1) == 82
+if size(param,1) == 85
     param = [param(1:35);[10;0;0;0;-10;0;0;0];param(36:end)];
 end
 >>>>>>> Git init
@@ -54,6 +54,7 @@ Buffer_size = 5; %samples
 Knee_State = 0;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 % knee controller
 Control_type = 1; %1 = NMC, 2 = FSM
 
@@ -67,3 +68,12 @@ Theta0_ankle = 0.00; %rad
 % knee controller
 Control_type = 2; %1 = NMC, 2 = FSM
 >>>>>>> Git init
+=======
+% knee controller
+Control_type = 1; %1 = NMC, 2 = FSM
+
+% % Ankle settings
+% K_ankle = 4;
+% D_ankle = 1.5;
+% Theta0_ankle = 0.05; %rad
+>>>>>>> updated model for 1.3 m/s, optimized ankle impedance
