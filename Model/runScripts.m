@@ -28,7 +28,11 @@ warning('off','all') % Needed for speed (Simulink gives warnings)
 if size(param,1) == 85
     param = [param(1:35);[10;0;0;0;-10;0;0;0];param(36:end)];
 end
+<<<<<<< HEAD
 >>>>>>> Git init
+=======
+param = xzero; 
+>>>>>>> update
 % Ankle settings can be found at param(36:40)
 
 %% Loading settings
