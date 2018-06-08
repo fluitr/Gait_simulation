@@ -1024,7 +1024,7 @@ while isempty(stopflag)
   ETA = ((opts.MaxFunEvals - TrialNum)*mean(val_list(:,2)))/3600;
   clc
   table(TrialNum,MinValLast,MeanValLast,MinOveral,TRunLast,ETA)
-  save('OptData/OptSaver.mat','val_list','i_opts', 'arxvalid(:,k)'); clear val_list i_opts
+  save('OptData/OptSaver.mat','val_list','i_opts'); clear val_list i_opts
   
   % ----- handle boundaries -----
   if 1 < 3 && bnd.isactive
