@@ -11,10 +11,14 @@ switch standing_still
     case 0
         XonX_On = 1; 
 <<<<<<< HEAD
+<<<<<<< HEAD
         vx0              	= paramIC(1)  	*1; %[m/s]
 =======
         vx0              	= paramIC(1)  	*1.3; %[m/s]
 >>>>>>> Git init
+=======
+        vx0              	= paramIC(1)  	*1.0; %[m/s]
+>>>>>>> Updata for speed
         Lphi120             = paramIC(2)   	*100*pi/180; %[rad]
         Lphi230             = paramIC(3)   	*180*pi/180; %[rad]
         Lphi340             = paramIC(4) 	*165*pi/180; %[rad]

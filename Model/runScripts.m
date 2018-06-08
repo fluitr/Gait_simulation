@@ -73,7 +73,15 @@ Control_type = 2; %1 = NMC, 2 = FSM
 Control_type = 1; %1 = NMC, 2 = FSM
 
 % % Ankle settings
+<<<<<<< HEAD
 % K_ankle = 4;
 % D_ankle = 1.5;
 % Theta0_ankle = 0.05; %rad
 >>>>>>> updated model for 1.3 m/s, optimized ankle impedance
+=======
+K_ankle = 5.3835;
+D_ankle = 2.9996;
+Theta0_ankle = -0.0919; %rad
+
+      
+>>>>>>> Updata for speed

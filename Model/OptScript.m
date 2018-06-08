@@ -76,8 +76,12 @@ while i_opts <= tot_run
 >>>>>>> Git init
 =======
         load('param_02cm_IMP.mat');
+<<<<<<< HEAD
 >>>>>>> updated model for 1.3 m/s, optimized ankle impedance
         x_zero = param;
+=======
+        x_zero = param(1:end-3);
+>>>>>>> Updata for speed
     else
         load(['Simulations/Sim',num2str(i_opts-1),'/cmaes_var.mat'],'out')
         x_zero = out.solutions.bestever.x; clear out;      
