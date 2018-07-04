@@ -21,7 +21,6 @@ scalorFactor = 1;
 % gravity
 g = 9.81;
 
-
 % ================ %
 % SEGMENT DYNAMICS %
 % ================ %

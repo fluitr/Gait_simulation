@@ -27,7 +27,7 @@ l_StP = 38;  %changed for Ankle
 l_SwP = 27;
 l_TrP = 2;
 
-l_2DCtrl    = l_BlP + l_FPP + l_LLP + l_StP + l_SwP + l_TrP;
+l_2DCtrl    = l_BlP +  l_FPP + l_LLP + l_StP + l_SwP + l_TrP;
 l_3DCtrl    = 18;
 
 param2D     = param(1                       : l_2DCtrl);
