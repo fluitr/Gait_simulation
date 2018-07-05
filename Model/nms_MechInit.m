@@ -21,13 +21,6 @@ scalorFactor = 1;
 % gravity
 g = 9.81;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> Git init
-=======
->>>>>>> Update of model
 % ================ %
 % SEGMENT DYNAMICS %
 % ================ %
