@@ -100,7 +100,7 @@ while i_opts <= tot_run
     %% Manual Options
     % Parpool settings
     opts.ParforRun = 1;
-    opts.ParforWorkers = 20;
+    opts.ParforWorkers = 4;
     
     if opts.ParforRun == 1
         p = gcp;

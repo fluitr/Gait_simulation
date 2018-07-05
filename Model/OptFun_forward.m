@@ -2,38 +2,21 @@ function val = OptFun_forCPG(x)
 %% This function runs the simulation for optimalisation
 %% param
 % keyboard
-assignin('base','param',x);
 
-% SetOptIC = 1; 
-% SetOptIMP = 1;
-% 
-% if SetOptIC
-%     assignin('base','paramIC',x(91:101));
-% else
-%     load('paramIC_02cm');
-% end
-% 
-% if SetOptIC
-%     assignin('base','ankleIMP',x(102:104)-SetOptIC*11);
-% else
-%     load('param_ankleIMP');
-% end
-
-t_end = 15; %Also Adjust in RunScripts
 
 %%Dist List
 dist_list = [128 0 ;....      %Sag
              0 128];                    %Front
 % Init
 val_list = nan(1,size(dist_list,2));
-
+t_end = 15;
 %% Simulating
 %% Try to prevent stop after error
 try
     for i_dist = 1:size(dist_list,2)
         %% Forward/backward/Side pert
         cur_dist = dist_list(:,i_dist); 
-
+        assignin('base','param',x);
         assignin('base','opt_dist',cur_dist);
      
         simOut = sim('nms_3Dmodel_forward',...
@@ -126,6 +109,7 @@ try
     val = sum(val_list);    
 catch ME
     val = NaN;
+%     keyboard
     disp(['Error in calculation: ',ME.identifier]);
 end
 end
