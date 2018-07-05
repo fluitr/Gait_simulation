@@ -92,6 +92,7 @@ try
                 % Speed 
 %                 % Body sway cost
 <<<<<<< HEAD
+<<<<<<< HEAD
                 v_error = trapz(t,(speed - v_d).^2,2);
                 vept = v_error/t(end); 
                 
@@ -104,6 +105,13 @@ try
                 %Normal
                 vept = abs(mean(speed) - 1.2);
 >>>>>>> Git init
+=======
+                v_error = trapz(t,(speed - v_d).^2,2);
+                vept = v_error/t(end); 
+                
+                %Normal
+                vept = abs(mean(speed) - v_d);
+>>>>>>> Update of model
                 
                 % Cost function
                 val_list(i_dist) = e_pm_pkg + 3 * vept; % + 3 * d_post;

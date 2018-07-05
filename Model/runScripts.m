@@ -2,6 +2,7 @@
 setenv('VSCMD_START_DIR','%CD%')
 addpath('./param/')
 <<<<<<< HEAD
+<<<<<<< HEAD
 warning('off','all') % Needed for speed (Simulink gives warnings)
 
 % uncomment section when running optimizations!!
@@ -33,12 +34,30 @@ end
 =======
 param = xzero; 
 >>>>>>> update
+=======
+warning('off','all') % Needed for speed (Simulink gives warnings)
+
+% uncomment section when running optimizations!!
+
+paramIC = param(91:101);
+ankleIMP = param(102:104);
+param = param(1:90);
+
+% keyboard
+% load('paramIC_02cm');	% paramIC
+% load('param_02cm_ext');	% param
+% param = param(1:90)
+% % ankleIMP = param(91:93);
+% load('param_ankleIMP'); % ankle IMP
+% param = param(1:90);
+>>>>>>> Update of model
 % Ankle settings can be found at param(36:40)
 
 %% Loading settings
 nms_MechInit;
 setInitPar;
 setCtrlPar;
+<<<<<<< HEAD
 <<<<<<< HEAD
 setDistPar;     % adding disturbance forces improves the stability of the solution when optimizing parameters
 setCPGPar;      % not used
@@ -48,6 +67,11 @@ setDistPar;
 setCPGPar;
 setGroundPar;
 >>>>>>> Git init
+=======
+setDistPar;     % adding disturbance forces improves the stability of the solution when optimizing parameters
+setCPGPar;      % not used
+setGroundPar;   % ramp ascent/ descent, level ground, random heights
+>>>>>>> Update of model
 
 %% Time & Other Settings
 t_end = 15; %Also Adjust in OptFun_For/OptFun_forCPG
@@ -76,6 +100,7 @@ Control_type = 2; %1 = NMC, 2 = FSM
 % knee controller
 Control_type = 1; %1 = NMC, 2 = FSM
 
+<<<<<<< HEAD
 % % Ankle settings
 <<<<<<< HEAD
 % K_ankle = 4;
@@ -89,3 +114,6 @@ Theta0_ankle = -0.0919; %rad
 
       
 >>>>>>> Updata for speed
+=======
+      
+>>>>>>> Update of model

@@ -22,9 +22,12 @@ scalorFactor = 1;
 g = 9.81;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> Git init
+=======
+>>>>>>> Update of model
 % ================ %
 % SEGMENT DYNAMICS %
 % ================ %
