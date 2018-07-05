@@ -4,38 +4,29 @@ addpath('./param/')
 warning('off','all') % Needed for speed (Simulink gives warnings)
 
 % uncomment section when running optimizations!!
-
-paramIC = param(91:101);
-ankleIMP = param(102:104);
-param = param(1:90);
-
-% keyboard
-% load('paramIC_02cm');	% paramIC
-% load('param_02cm_ext');	% param
-% param = param(1:90)
-% % ankleIMP = param(91:93);
-% load('param_ankleIMP'); % ankle IMP
-% param = param(1:90);
-
-warning('off','all') % Needed for speed (Simulink gives warnings)
-
- load('paramIC_02cm');	% paramIC
-%  load('param_02cm');	% param
- %load('param_V103_for_wAnkleCPG');	% param
- 
-if size(param,1) == 85
-    param = [param(1:35);[10;0;0;0;-10;0;0;0];param(36:end)];
+SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
+paramIC_opt = [1 8 9 10];
+SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
+keyboard
+% load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\param\param_NMS_IC_IMP.mat')
+load('paramIC_02cm');	% paramIC
+if SetOptIC %&& ankleIMP
+    for i = 1:length(paramIC_opt)
+        paramIC(paramIC_opt(i)) = param(90+i);
+    end
 end
-param = xzero; 
-warning('off','all') % Needed for speed (Simulink gives warnings)
 
-% uncomment section when running optimizations!!
+if SetOptIMP %&& ankleIMP
+    ankleIMP = param(90+length(paramIC_opt):92+length(paramIC_opt));
+else
+    load('param_ankleIMP'); % ankle IMP
+end
 
-paramIC = param(91:101);
-ankleIMP = param(102:104);
+% paramIC = param(91:101);
+% ankleIMP = param(102:104);
 param = param(1:90);
 
-% keyboard
+
 % load('paramIC_02cm');	% paramIC
 % load('param_02cm_ext');	% param
 % param = param(1:90)
@@ -60,39 +51,6 @@ Fs_prosthesis = 1000; %Hz
 Buffer_size = 5; %samples
 Knee_State = 0;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 % knee controller
 Control_type = 1; %1 = NMC, 2 = FSM
 
-      
-=======
-% Ankle settings
-K_ankle = 82*4;
-D_ankle = 10;
-Theta0_ankle = 0.00; %rad
-
-% knee controller
-Control_type = 2; %1 = NMC, 2 = FSM
->>>>>>> Git init
-=======
-% knee controller
-Control_type = 1; %1 = NMC, 2 = FSM
-
-<<<<<<< HEAD
-% % Ankle settings
-<<<<<<< HEAD
-% K_ankle = 4;
-% D_ankle = 1.5;
-% Theta0_ankle = 0.05; %rad
->>>>>>> updated model for 1.3 m/s, optimized ankle impedance
-=======
-K_ankle = 5.3835;
-D_ankle = 2.9996;
-Theta0_ankle = -0.0919; %rad
-
-      
->>>>>>> Updata for speed
-=======
-      
->>>>>>> Update of model

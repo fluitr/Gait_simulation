@@ -13,9 +13,10 @@ tot_run = 10;
 functionName = 'OptFun_forward';
 
 % check settings of runScripts.m for model settings
-global SetOptIC SetOptIMP v_d
+global SetOptIC SetOptIMP v_d paramIC_opt
 
-SetOptIC = 1; % Co-optimize initial conditions too (+11 param)
+SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
+paramIC_opt = [1 8 9 10];
 SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
 v_d = 1;
 
@@ -61,8 +62,13 @@ while i_opts <= tot_run
         if SetOptIMP && ~SetOptIC
             load('param_02cm_IMP.mat');
         end
-        if SetOptIC && SetOptIMP
+        if ~SetOptIMP && SetOptIC
             load('param_NMS_IC_IMP.mat');
+            param = param([1:90 90+paramIC_opt]);
+        end
+        if SetOptIMP && SetOptIC
+            load('param_NMS_IC_IMP.mat');
+            param = param([1:90 90+paramIC_opt 102:104]);
         end
         x_zero = param;
     else
@@ -93,12 +99,12 @@ while i_opts <= tot_run
     
     %% Manual Options
     % Parpool settings
-%     opts.ParforRun = 1;
-%     opts.ParforWorkers = 20;
-%     
-%     if opts.ParforRun == 1
-%         p = gcp;
-%     end
+    opts.ParforRun = 1;
+    opts.ParforWorkers = 20;
+    
+    if opts.ParforRun == 1
+        p = gcp;
+    end
         
     % Other options
     opts.Noise.on = 0;
@@ -112,7 +118,7 @@ while i_opts <= tot_run
     
     %% Sigma list
 
-    sigma_list = ones(90+SetOptIC*11+SetOptIMP*3,1);
+    sigma_list = ones(90+SetOptIC*length(paramIC_opt)+SetOptIMP*3,1);
     sigma_list(1) = 0.56;
     sigma_list([2:4 73:75]) = 0.025;
     sigma_list(5) = 0.03;
@@ -123,11 +129,10 @@ while i_opts <= tot_run
     sigma_list([71 72 89 90]) = 0.22;
     sigma_list = sigma_list .* 2; 
     if SetOptIC
-        sigma_list([91 100 101]) = [0.02 0.02 0.02];
-        sigma_list(92:98) = 0.05;
+        sigma_list([91:90+length(paramIC_opt)]) = 0.05;
     end
     if SetOptIMP
-        sigma_list([91 92 93]+SetOptIC*11) = [0.5 0.5 0.05];
+        sigma_list([91 92 93]+SetOptIC*length(paramIC_opt)) = [0.5 0.5 0.05];
     end
     
     % Ankle Module
@@ -142,6 +147,7 @@ while i_opts <= tot_run
     
     %% Optimalization
     save('OptData/OptSaver.mat','val_list','i_opts')
+%     keyboard
     [xmin,fmin,counteval,stopflag,out,bestever] = cmaes_parfor(functionName,x_zero,sigma_list,opts)
     
     %% Saving Optimization 

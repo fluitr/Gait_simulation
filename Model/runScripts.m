@@ -3,13 +3,30 @@ setenv('VSCMD_START_DIR','%CD%')
 addpath('./param/')
 warning('off','all') % Needed for speed (Simulink gives warnings)
 
+% keyboard
 % uncomment section when running optimizations!!
-load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\param\param_NMS_IC_IMP.mat')
-paramIC = param(91:101);
-ankleIMP = param(102:104);
+SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
+paramIC_opt = [1 8 9 10];
+SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
+
+% load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\param\param_NMS_IC_IMP.mat')
+load('paramIC_02cm');	% paramIC
+if SetOptIC %&& ankleIMP
+    for i = 1:length(paramIC_opt)
+        paramIC(paramIC_opt(i)) = param(90+i);
+    end
+end
+
+if SetOptIMP %&& ankleIMP
+    ankleIMP = param(91+length(paramIC_opt):93+length(paramIC_opt));
+else
+    load('param_ankleIMP'); % ankle IMP
+end
+
+% paramIC = param(91:101);
+% ankleIMP = param(102:104);
 param = param(1:90);
 
-% keyboard
 % load('paramIC_02cm');	% paramIC
 % load('param_02cm_ext');	% param
 % param = param(1:90)
