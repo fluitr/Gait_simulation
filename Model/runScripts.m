@@ -3,6 +3,7 @@ setenv('VSCMD_START_DIR','%CD%')
 addpath('./param/')
 warning('off','all') % Needed for speed (Simulink gives warnings)
 
+load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\param\param_NMS_IC_IMP.mat')
 % keyboard
 % uncomment section when running optimizations!!
 SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
@@ -47,10 +48,10 @@ setGroundPar;   % ramp ascent/ descent, level ground, random heights
 t_end = 15; %Also Adjust in OptFun_For/OptFun_forCPG
 wCPG = 0;
 
-Fs_prosthesis = 1000; %Hz
-Buffer_size = 5; %samples
-Knee_State = 0;
+% Fs_prosthesis = 1000; %Hz
+% Buffer_size = 5; %samples
+% Knee_State = 0;
 
 % knee controller
-Control_type = 1; %1 = NMC, 2 = FSM
+% Control_type = 1; %1 = NMC, 2 = FSM
 

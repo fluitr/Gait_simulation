@@ -99,12 +99,12 @@ while i_opts <= tot_run
     
     %% Manual Options
     % Parpool settings
-    opts.ParforRun = 1;
-    opts.ParforWorkers = 4;
-    
-    if opts.ParforRun == 1
-        p = gcp;
-    end
+%     opts.ParforRun = 1;
+%     opts.ParforWorkers = 4;
+%     
+%     if opts.ParforRun == 1
+%         p = gcp;
+%     end
         
     % Other options
     opts.Noise.on = 0;
