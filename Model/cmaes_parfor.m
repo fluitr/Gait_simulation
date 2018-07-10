@@ -929,6 +929,7 @@ while isempty(stopflag)
       % (columns of) arxvalid(:,k) only for the evaluation of the
       % fitness function. arx should not be changed.
       outcome_parfor{k} = feval(fitfun, par_arxvalid{k}, varargin{:});
+      
   end
     if ~isempty(find(isnan(cell2mat(outcome_parfor))))
         

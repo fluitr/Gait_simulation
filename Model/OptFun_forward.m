@@ -1,25 +1,25 @@
-function val = OptFun_forCPG(x)
+function val = OptFun_forward(x)
 %% This function runs the simulation for optimalisation
 %% param
-% keyboard
-
-
+model = 'nms_3Dmodel';
+    
+assignin('base','param',x);
 %%Dist List
-dist_list = [128 0 ;....      %Sag
-             0 128];                    %Front
+% dist_list = [128 0 ;....      %Sag
+%              0 128];                    %Front
+dist_list = [0; 0];
 % Init
 val_list = nan(1,size(dist_list,2));
 t_end = 15;
 %% Simulating
 %% Try to prevent stop after error
 try
-    for i_dist = 1:size(dist_list,2)
+    for i_dist = 1 %:size(dist_list,2)
         %% Forward/backward/Side pert
-        cur_dist = dist_list(:,i_dist); 
-        assignin('base','param',x);
-        assignin('base','opt_dist',cur_dist);
-     
-        simOut = sim('nms_3Dmodel_forward',...
+%         cur_dist = dist_list(:,i_dist); 
+    
+%         assignin('base','opt_dist',cur_dist);
+        simOut = sim(model,...
             'SimulationMode', 'accelerator',...  
             'SrcWorkspace','base',...
             'ExternalInput','param',...
@@ -28,15 +28,13 @@ try
             'SaveFormat', 'Dataset');
         outputs = simOut.get('yout');
         t = simOut.get('tout')';
-        t(end)
-%         keyboard
-        
+
         BodyInfo = outputs.get('data').Values.body_info.Data';
         positions = outputs.get('data').Values.positions.Data';
         stance = outputs.get('data').Values.stance.Data';
         bodyrot = outputs.get('data').Values.bodyrot.Data';
         muscle_power = outputs.get('data').Values.muscle_power.Data';
-%         keyboard
+
         %% Loading data speed
         speed = BodyInfo(3,:);
         dist_tot_x = BodyInfo(2,end);
@@ -109,7 +107,6 @@ try
     val = sum(val_list);    
 catch ME
     val = NaN;
-%     keyboard
     disp(['Error in calculation: ',ME.identifier]);
 end
 end

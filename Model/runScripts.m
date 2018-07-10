@@ -1,16 +1,14 @@
 % this script is called by nms_3Dmodel.mdl
-setenv('VSCMD_START_DIR','%CD%')
+
+setenv('VSCMD_START_DIR','%CD%') % <-- REMOVE OR UNCOMMENT IN PARFOR,
+% CAUSES REBUILD OF SIMULINK MODELS!
 addpath('./param/')
 warning('off','all') % Needed for speed (Simulink gives warnings)
 
-load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\param\param_NMS_IC_IMP.mat')
-% keyboard
-% uncomment section when running optimizations!!
 SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
 paramIC_opt = [1 8 9 10];
 SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
 
-% load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\param\param_NMS_IC_IMP.mat')
 load('paramIC_02cm');	% paramIC
 if SetOptIC %&& ankleIMP
     for i = 1:length(paramIC_opt)
@@ -26,7 +24,7 @@ end
 
 % paramIC = param(91:101);
 % ankleIMP = param(102:104);
-param = param(1:90);
+% param = param(1:90);
 
 % load('paramIC_02cm');	% paramIC
 % load('param_02cm_ext');	% param

@@ -3,7 +3,7 @@ clear, clc
 %% Opt Script
 addpath('param');
 addpath('Library');
-
+slblocks
 setenv('VSCMD_START_DIR','%CD%')
 
 %% Overal options 
@@ -13,12 +13,14 @@ tot_run = 10;
 functionName = 'OptFun_forward';
 
 % check settings of runScripts.m for model settings
-global SetOptIC SetOptIMP v_d paramIC_opt
+global v_d
+v_d = 1;
 
+% Copy to optfun!
 SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
 paramIC_opt = [1 8 9 10];
 SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
-v_d = 1;
+
 
 %% Setting resume options
 % Second time (after Matlab restart) or in case of a manual restart
@@ -99,12 +101,12 @@ while i_opts <= tot_run
     
     %% Manual Options
     % Parpool settings
-%     opts.ParforRun = 1;
-%     opts.ParforWorkers = 4;
-%     
-%     if opts.ParforRun == 1
-%         p = gcp;
-%     end
+    opts.ParforRun = 1;
+    opts.ParforWorkers = 4;
+    
+    if opts.ParforRun == 1
+        p = gcp;
+    end
         
     % Other options
     opts.Noise.on = 0;
@@ -147,7 +149,6 @@ while i_opts <= tot_run
     
     %% Optimalization
     save('OptData/OptSaver.mat','val_list','i_opts')
-%     keyboard
     [xmin,fmin,counteval,stopflag,out,bestever] = cmaes_parfor(functionName,x_zero,sigma_list,opts)
     
     %% Saving Optimization 

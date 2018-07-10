@@ -6,7 +6,7 @@
 % May 2016
 % Edited by Rene, June 2018
 
-GroundFunction = 1;     %1 = Use Ground function, 2 = Use zero
+GroundFunction = 2;     %1 = Use Ground function, 2 = Use zero
 
 % set type of ground
 GroundType = 2; 
@@ -30,7 +30,7 @@ switch GroundType
         a1 = 0.05; % max. meters of difference
         b1 = 2; % start of random height
         b2 = 1; % length of section
-        ran_h = a1*(rand(1,10)-0.5);
+        ran_h = ones(1,10)*0.02; %a1*(rand(1,10)-0.5); <-- does not work
         ran_d = b1+(1:10)*b2;
         HeightFunction = '(u(1)>ran_d(1))*ran_h(1)+(u(1)>ran_d(2))*ran_h(2)+(u(1)>ran_d(3))*ran_h(3)+(u(1)>ran_d(4))*ran_h(4)+(u(1)>ran_d(5))*ran_h(5)+(u(1)>ran_d(6))*ran_h(6)+(u(1)>ran_d(7))*ran_h(7)+(u(1)>ran_d(8))*ran_h(8)+(u(1)>ran_d(9))*ran_h(9)+(u(1)>ran_d(10))*ran_h(10)';
         NormalFunction = '0';
