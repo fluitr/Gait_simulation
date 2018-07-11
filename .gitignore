@@ -8,3 +8,6 @@ Model/RecordsFolder/
 Model/nms_3Dmodel_for_wAnkleCPG_acc.mexa64
 Model/slprj/
 
+/Model/*.slxc
+*.slxc
+/Model/*.mexw64
