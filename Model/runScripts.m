@@ -1,13 +1,12 @@
 % this script is called by nms_3Dmodel.mdl
 
-setenv('VSCMD_START_DIR','%CD%') % <-- REMOVE OR UNCOMMENT IN PARFOR,
-% CAUSES REBUILD OF SIMULINK MODELS!
+% setenv('VSCMD_START_DIR','%CD%') % 
 addpath('./param/')
 warning('off','all') % Needed for speed (Simulink gives warnings)
 
 SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
-paramIC_opt = [1 8 9 10];
-SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
+paramIC_opt = 1:9; %[1 8 9 10];
+SetOptIMP = 0; % Co-optimize foot impedance settings (+3 param)
 
 load('paramIC_02cm');	% paramIC
 if SetOptIC %&& ankleIMP
@@ -45,6 +44,8 @@ setGroundPar;   % ramp ascent/ descent, level ground, random heights
 %% Time & Other Settings
 t_end = 15; %Also Adjust in OptFun_For/OptFun_forCPG
 wCPG = 0;
+
+Passive_ankle = 0; %1 = use passive ankle, 0 = use NMC control
 
 % Fs_prosthesis = 1000; %Hz
 % Buffer_size = 5; %samples

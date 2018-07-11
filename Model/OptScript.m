@@ -13,13 +13,13 @@ tot_run = 10;
 functionName = 'OptFun_forward';
 
 % check settings of runScripts.m for model settings
-global v_d
-v_d = 1;
+% global v_d
+% v_d = 1;
 
 % Copy to optfun!
 SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
-paramIC_opt = [1 8 9 10];
-SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
+paramIC_opt = 1:9;
+SetOptIMP = 0; % Co-optimize foot impedance settings (+3 param)
 
 
 %% Setting resume options
@@ -47,6 +47,9 @@ else
             copyfile('Simulations','Simulations_old')
             rmdir('Simulations','s'); mkdir('Simulations');
             fopen('Simulations/keep_folder.txt','w');fclose('all');
+            copyfile('OptData','OptData_old')
+            rmdir('OptData','s'); mkdir('Optdata');
+            fopen('OptData/keep_folder.txt','w');fclose('all');
         case('Yes, no backup')
             rmdir('Simulations','s'); mkdir('Simulations')
             fopen('Simulations/keep_folder.txt','w');fclose('all');
@@ -66,6 +69,7 @@ while i_opts <= tot_run
         end
         if ~SetOptIMP && SetOptIC
             load('param_NMS_IC_IMP.mat');
+            load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\OptData_old\REF - LGW - 1\Optpar.mat')
             param = param([1:90 90+paramIC_opt]);
         end
         if SetOptIMP && SetOptIC
@@ -109,7 +113,7 @@ while i_opts <= tot_run
     end
         
     % Other options
-    opts.Noise.on = 0;
+    opts.Noise.on = 1;
     opts.PopSize = 20;
     opts.SaveFilename = 'OptData/cmaes_var.mat';
     opts.LogFilenamePrefix ='OptData/cmaes_out';
@@ -122,12 +126,12 @@ while i_opts <= tot_run
 
     sigma_list = ones(90+SetOptIC*length(paramIC_opt)+SetOptIMP*3,1);
     sigma_list(1) = 0.56;
-    sigma_list([2:4 73:75]) = 0.025;
-    sigma_list(5) = 0.03;
+    sigma_list([2:4 73:75]) = 0.1; %0.025;
+    sigma_list(5) = 0.1; %0.03;
     sigma_list([6:14 76 77]) = 0.15;
-    sigma_list([15:35 78:84]) = 0.025;
+    sigma_list([15:35 78:84]) = 0.1; %0.025;0.025;
     sigma_list([44:52 85 86]) = 0.47;
-    sigma_list([53:70 87 88]) = 0.025;
+    sigma_list([53:70 87 88]) = 0.1; %0.025;
     sigma_list([71 72 89 90]) = 0.22;
     sigma_list = sigma_list .* 2; 
     if SetOptIC
