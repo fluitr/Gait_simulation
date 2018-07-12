@@ -18,7 +18,7 @@ functionName = 'OptFun_forward';
 
 % Copy to optfun!
 SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
-paramIC_opt = 1:9;
+paramIC_opt = 1;
 SetOptIMP = 0; % Co-optimize foot impedance settings (+3 param)
 
 
@@ -63,14 +63,16 @@ while i_opts <= tot_run
     if i_opts == 1
         if ~SetOptIMP && ~SetOptIC
             load('param_02cm.mat');
+            load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\OptData_old\REF_LGW_1\Base_par2.mat')
         end
         if SetOptIMP && ~SetOptIC
             load('param_02cm_IMP.mat');
         end
         if ~SetOptIMP && SetOptIC
             load('param_NMS_IC_IMP.mat');
-            load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\OptData_old\REF - LGW - 1\Optpar.mat')
-            param = param([1:90 90+paramIC_opt]);
+            load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\OptData_old\REF_LGW_1\Base_par2.mat')
+            param = [param(1:90); 1];
+%             sigma = [sigma; 0.1];
         end
         if SetOptIMP && SetOptIC
             load('param_NMS_IC_IMP.mat');
@@ -81,7 +83,7 @@ while i_opts <= tot_run
         load(['Simulations/Sim',num2str(i_opts-1),'/cmaes_var.mat'],'out')
         x_zero = out.solutions.bestever.x; clear out;      
     end
-    
+
     %% Build Model
     if strcmp(functionName,'OptFun_hyb')
         init_val = feval('OptFun_forCPG',x_zero);
@@ -137,6 +139,7 @@ while i_opts <= tot_run
     if SetOptIC
         sigma_list([91:90+length(paramIC_opt)]) = 0.05;
     end
+    sigma_list([1 16 36 45 46 50 51 71 72 86 89]) = 2;
     if SetOptIMP
         sigma_list([91 92 93]+SetOptIC*length(paramIC_opt)) = [0.5 0.5 0.05];
     end
@@ -150,6 +153,7 @@ while i_opts <= tot_run
     if size(x_zero,1) == 82
         sigma_list(36:43) = [];
     end
+%     sigma_list = sigma;
     
     %% Optimalization
     save('OptData/OptSaver.mat','val_list','i_opts')

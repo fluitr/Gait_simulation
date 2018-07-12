@@ -17,7 +17,6 @@ try
     for i_dist = 1:size(dist_list,2)
         %% Forward/backward/Side pert
         cur_dist = dist_list(:,i_dist); 
-%     keyboard
         assignin('base','opt_dist',cur_dist);
         simOut = sim(model,...
             'SimulationMode', 'accelerator',...  
@@ -28,17 +27,17 @@ try
             'SaveFormat', 'Dataset');
         outputs = simOut.get('yout');
         t = simOut.get('tout')';
-
         BodyInfo = outputs.get('data').Values.body_info.Data';
         positions = outputs.get('data').Values.positions.Data';
         stance = outputs.get('data').Values.stance.Data';
         bodyrot = outputs.get('data').Values.bodyrot.Data';
         muscle_power = outputs.get('data').Values.muscle_power.Data';
+        pas_tor = outputs.get('data').Values.passive_torques.Data';
 % keyboard
         %% Loading data speed
         speed = BodyInfo(3,:);
         dist_tot_x = BodyInfo(2,end);
-        
+%           keyboard
         %% Cost function, part 1:
         if t(end) < t_end
             val_list(i_dist) = 1000 - dist_tot_x;
@@ -98,8 +97,11 @@ try
                 %Normal
                 vept = abs(mean(speed) - v_d);
                 
+                pt = sum(abs(trapz(t, pas_tor,2)))/80;
+                
                 % Cost function
-                val_list(i_dist) = e_pm_pkg*(1/20) + 3*vept +d_pre; % + 3 * d_post;
+              
+                val_list(i_dist) = e_pm_pkg*(1/20) + 3*vept +d_pre + pt*(2/3); % + 3 * d_post;
 %                 val_list(i_dist) = ept + 10 * vept + 30*d_post;
 %                 val_list(i_dist) = ept + 500 * vept + 30*d_post_ankles;
 %             end
