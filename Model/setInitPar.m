@@ -19,7 +19,7 @@ switch standing_still
         Rphi340             = paramIC(7)   	*200*pi/180; %[rad]
         Lphi340R            = paramIC(8)*(-1)*pi/180;
         Rphi340R            = paramIC(9)*(-1)*pi/180;
-        
+        Rphi340dot          = -2;
         vy0 = paramIC(10)*.2;
         
         x0      = .2;

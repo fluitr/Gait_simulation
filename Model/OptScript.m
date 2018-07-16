@@ -19,7 +19,7 @@ functionName = 'OptFun_forward';
 % Copy to optfun!
 SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
 paramIC_opt = 1;
-SetOptIMP = 0; % Co-optimize foot impedance settings (+3 param)
+SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
 
 
 %% Setting resume options
@@ -71,12 +71,19 @@ while i_opts <= tot_run
         if ~SetOptIMP && SetOptIC
             load('param_NMS_IC_IMP.mat');
             load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\OptData_old\REF_LGW_1\Base_par2.mat')
-            param = [param(1:90); 1];
+              load('param_02cm.mat');
+              param = [param(1:35);[1.3;0.5;0.5;0.5;-1.3;.5;.5;.5];param(36:end); 1];
+%               param = [param; 1];
 %             sigma = [sigma; 0.1];
         end
         if SetOptIMP && SetOptIC
+%             keyboard
             load('param_NMS_IC_IMP.mat');
-            param = param([1:90 90+paramIC_opt 102:104]);
+            AnkleIMP = param(end-2:end);
+            load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\OptData_old\REF_LGW_1_test\Opt_par.mat')
+            param = [param; AnkleIMP];
+            sigma = [sigma; 1; 1; 0.05];
+%             param = param([1:90 90+paramIC_opt 102:104]);
         end
         x_zero = param;
     else
@@ -116,7 +123,7 @@ while i_opts <= tot_run
         
     % Other options
     opts.Noise.on = 1;
-    opts.PopSize = 20;
+    opts.PopSize = 25;
     opts.SaveFilename = 'OptData/cmaes_var.mat';
     opts.LogFilenamePrefix ='OptData/cmaes_out';
     opts.LogPlot = 0;
@@ -145,15 +152,15 @@ while i_opts <= tot_run
     end
     
     % Ankle Module
-    sigma_list(36) = 0.05;
+    sigma_list(36) = 0.3;
     sigma_list(37:39) = 0.5;
-    sigma_list(40) = 0.05;
+    sigma_list(40) = 0.3;
     sigma_list(41:43) = 0.5;
     
     if size(x_zero,1) == 82
         sigma_list(36:43) = [];
     end
-%     sigma_list = sigma;
+    sigma_list = sigma;
     
     %% Optimalization
     save('OptData/OptSaver.mat','val_list','i_opts')

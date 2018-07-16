@@ -5,6 +5,7 @@ model = 'nms_3Dmodel';
     
 assignin('base','param',x);
 %%Dist List
+v_d = 1;
 dist_list = [128 0 ;....      %Sag
              0 128];                    %Front
 % dist_list = [0; 0];
@@ -40,6 +41,7 @@ try
 %           keyboard
         %% Cost function, part 1:
         if t(end) < t_end
+            vept = abs(mean(speed) - v_d);
             val_list(i_dist) = 1000 - dist_tot_x;
         else
             
@@ -101,7 +103,7 @@ try
                 
                 % Cost function
               
-                val_list(i_dist) = e_pm_pkg*(1/20) + 3*vept +d_pre + pt*(2/3); % + 3 * d_post;
+                val_list(i_dist) = e_pm_pkg*(1/20) + 8*vept +d_pre + pt*(2/3); % + 3 * d_post;
 %                 val_list(i_dist) = ept + 10 * vept + 30*d_post;
 %                 val_list(i_dist) = ept + 500 * vept + 30*d_post_ankles;
 %             end
