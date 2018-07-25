@@ -401,7 +401,7 @@ t1fTA    = 0.7;  % type 1 muscle fibers
 k_gn = (2*(m_F+m_S+m_T)+m_HAT)*g/0.01; %[N/m]
 
 % max relaxation speed of vertical ground interaction
-v_gn_max = 0.03; %[m/s]
+v_gn_max = 0.015; %[m/s]
 
 
 % --------------------
@@ -415,7 +415,7 @@ mu_slide = 0.8;
 vLimit = 0.01; %[m/s]
 
 % stiffness of horizontal ground stiction
-k_gt = (2*(m_F+m_S+m_T)+m_HAT)*g/0.1; %[N/m] 0.01
+k_gt = (2*(m_F+m_S+m_T)+m_HAT)*g/0.05; %[N/m] 0.01
 
 % max relaxation speed of horizontal ground stiction
 v_gt_max = 0.03; %[m/s] 0.03

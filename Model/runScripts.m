@@ -1,17 +1,16 @@
 % this script is called by nms_3Dmodel.mdl
-
 setenv('VSCMD_START_DIR','%CD%') % 
 addpath('./param/')
 warning('off','all') % Needed for speed (Simulink gives warnings)
 
 SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
 paramIC_opt = 1; %[1 8 9 10];
-SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
+SetOptIMP = 0; % Co-optimize foot impedance settings (+3 param)
 
 load('paramIC_02cm');	% paramIC
 if SetOptIC %&& ankleIMP
     for i = 1:length(paramIC_opt)
-        paramIC(paramIC_opt(i)) = param(90+i);
+        paramIC(paramIC_opt(i)) = param(82+i);
     end
 end
 
@@ -21,6 +20,10 @@ else
     load('param_ankleIMP'); % ankle IMP
 end
 
+if length(param) == 83
+    param = [param(1:35); 10;0;0;0;10;0;0;0;param(36:end)];
+end
+% keyboard
 % paramIC = param(91:101);
 % ankleIMP = param(102:104);
 % param = param(1:90);
@@ -45,12 +48,13 @@ setGroundPar;   % ramp ascent/ descent, level ground, random heights
 t_end = 15; %Also Adjust in OptFun_For/OptFun_forCPG
 wCPG = 0;
 
-Passive_ankle = 1; %1 = use passive ankle, 0 = use NMC control
+Passive_ankle = 0; %1 = use passive ankle, 0 = use NMC control
 
-% Fs_prosthesis = 1000; %Hz
+Fs_prosthesis = 1000; %Hz
 % Buffer_size = 5; %samples
 % Knee_State = 0;
 
 % knee controller
+Controller_type = 1;
 % Control_type = 1; %1 = NMC, 2 = FSM
 

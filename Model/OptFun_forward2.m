@@ -101,7 +101,13 @@ try
             
             lpFilt = designfilt('lowpassfir','PassbandFrequency',0.005, ...
             'StopbandFrequency',0.1, 'DesignMethod','kaiserwin');
-           
+            if v_d < 1.2
+                gt = 0;
+            elseif v_d >= 1.2 & v_d < 1.5
+                gt = 1;
+            elseif v_d >= 1.5
+                gt = 2;
+            end
  
 %             %GRFs left and right
 %             for i_HSL = 1:length(HSL)-1
@@ -138,19 +144,19 @@ try
                 KFML(i_HSL, 1:nsamples) = interp1(v, filtfilt(lpFilt,tor(3,ts:te)'), vq)/80;
                 AFML(i_HSL, 1:nsamples) = interp1(v, filtfilt(lpFilt,tor(4,ts:te)'), vq)/80;
             end
-            ccl(1) = corr(W_GRF(:,2), mean(vGRFL)');
-            ccl(2) = corr(W_GRF(:,4), mean(faGRFL)');
-            ccl(3) = corr(W_ang(:,2), mean(HFL)');
-            ccl(4) = corr(W_ang(:,4), mean(KFL)');
-            ccl(5) = corr(W_ang(:,6), mean(AFL)');
-            ccl(6) = corr(W_tor(:,2), mean(HFML)');
-            ccl(7) = corr(W_tor(:,4), mean(KFML)');
-            ccl(8) = corr(W_tor(:,6), mean(AFML)');
-            RMSEl(1) = sqrt(sum((W_GRF(:,2)- mean(vGRFL)').^2)/nsamples)*(1/max(W_GRF(:,2)));
-            RMSEl(2) = sqrt(sum((W_GRF(:,4)- mean(faGRFL)').^2)/nsamples)*(1/(max(W_GRF(:,4)-min(W_GRF(:,4)))));
-            RMSEl(3) = sqrt(sum((W_ang(:,2)- mean(HFL)'  ).^2)/nsamples)*(1/(max(W_ang(:,2)-min(W_ang(:,2)))));
-            RMSEl(3) = sqrt(sum((W_ang(:,4)- mean(KFL)'  ).^2)/nsamples)*(1/(max(W_ang(:,4)-min(W_ang(:,4)))));
-            RMSEl(4) = sqrt(sum((W_ang(:,6)- mean(AFL)'  ).^2)/nsamples)*(1/(max(W_ang(:,6)-min(W_ang(:,6)))));
+            ccl(1) = corr(W_GRF(:,2+gt*7), mean(vGRFL)');
+            ccl(2) = corr(W_GRF(:,4+gt*7), mean(faGRFL)');
+            ccl(3) = corr(W_ang(:,2+gt*7), mean(HFL)');
+            ccl(4) = corr(W_ang(:,4+gt*7), mean(KFL)');
+            ccl(5) = corr(W_ang(:,6+gt*7), mean(AFL)');
+            ccl(6) = corr(W_tor(:,2+gt*7), mean(HFML)');
+            ccl(7) = corr(W_tor(:,4+gt*7), mean(KFML)');
+            ccl(8) = corr(W_tor(:,6+gt*7), mean(AFML)');
+            RMSEl(1) = sqrt(sum((W_GRF(:,2+gt*7)- mean(vGRFL)').^2)/nsamples)*(1/max(W_GRF(:,2+gt*7)));
+            RMSEl(2) = sqrt(sum((W_GRF(:,4+gt*7)- mean(faGRFL)').^2)/nsamples)*(1/(max(W_GRF(:,4+gt*7)-min(W_GRF(:,4+gt*7)))));
+            RMSEl(3) = sqrt(sum((W_ang(:,2+gt*7)- mean(HFL)'  ).^2)/nsamples)*(1/(max(W_ang(:,2+gt*7)-min(W_ang(:,2+gt*7)))));
+            RMSEl(3) = sqrt(sum((W_ang(:,4+gt*7)- mean(KFL)'  ).^2)/nsamples)*(1/(max(W_ang(:,4+gt*7)-min(W_ang(:,4+gt*7)))));
+            RMSEl(4) = sqrt(sum((W_ang(:,6+gt*7)- mean(AFL)'  ).^2)/nsamples)*(1/(max(W_ang(:,6+gt*7)-min(W_ang(:,6+gt*7)))));
             
             for i_HSR = 1:length(HSR)-1
                 ts = HSR(i_HSR);
@@ -167,19 +173,19 @@ try
                 AFMR(i_HSR, 1:nsamples) = interp1(v, filtfilt(lpFilt,tor(8,ts:te)'), vq)/80;
                 
             end
-            ccr(1) = corr(W_GRF(:,2), mean(vGRFR)');
-            ccr(2) = corr(W_GRF(:,4), mean(faGRFR)');
-            ccr(3) = corr(W_ang(:,2), mean(HFR)');
-            ccr(4) = corr(W_ang(:,4), mean(KFR)');
-            ccr(5) = corr(W_ang(:,6), mean(AFR)');
-            ccr(6) = corr(W_tor(:,2), mean(HFMR)');
-            ccr(7) = corr(W_tor(:,4), mean(KFMR)');
-            ccr(8) = corr(W_tor(:,6), mean(AFMR)');
-            RMSEr(1) = sqrt(sum((W_GRF(:,2)- mean(vGRFR)').^2)/nsamples)*(1/max(W_GRF(:,2)));
-            RMSEr(2) = sqrt(sum((W_GRF(:,4)- mean(faGRFR)').^2)/nsamples)*(1/(max(W_GRF(:,4)-min(W_GRF(:,4)))));
-            RMSEr(3) = sqrt(sum((W_ang(:,2)- mean(HFR)'  ).^2)/nsamples)*(1/(max(W_ang(:,2)-min(W_ang(:,2)))));
-            RMSEr(3) = sqrt(sum((W_ang(:,4)- mean(KFR)'  ).^2)/nsamples)*(1/(max(W_ang(:,4)-min(W_ang(:,4)))));
-            RMSEr(4) = sqrt(sum((W_ang(:,6)- mean(AFR)'  ).^2)/nsamples)*(1/(max(W_ang(:,6)-min(W_ang(:,6)))));  
+            ccr(1) = corr(W_GRF(:,2+gt*7), mean(vGRFR)');
+            ccr(2) = corr(W_GRF(:,4+gt*7), mean(faGRFR)');
+            ccr(3) = corr(W_ang(:,2+gt*7), mean(HFR)');
+            ccr(4) = corr(W_ang(:,4+gt*7), mean(KFR)');
+            ccr(5) = corr(W_ang(:,6+gt*7), mean(AFR)');
+            ccr(6) = corr(W_tor(:,2+gt*7), mean(HFMR)');
+            ccr(7) = corr(W_tor(:,4+gt*7), mean(KFMR)');
+            ccr(8) = corr(W_tor(:,6+gt*7), mean(AFMR)');
+            RMSEr(1) = sqrt(sum((W_GRF(:,2+gt*7)- mean(vGRFR)').^2)/nsamples)*(1/max(W_GRF(:,2+gt*7)));
+            RMSEr(2) = sqrt(sum((W_GRF(:,4+gt*7)- mean(faGRFR)').^2)/nsamples)*(1/(max(W_GRF(:,4+gt*7)-min(W_GRF(:,4+gt*7)))));
+            RMSEr(3) = sqrt(sum((W_ang(:,2+gt*7)- mean(HFR)'  ).^2)/nsamples)*(1/(max(W_ang(:,2+gt*7)-min(W_ang(:,2+gt*7)))));
+            RMSEr(3) = sqrt(sum((W_ang(:,4+gt*7)- mean(KFR)'  ).^2)/nsamples)*(1/(max(W_ang(:,4+gt*7)-min(W_ang(:,4+gt*7)))));
+            RMSEr(4) = sqrt(sum((W_ang(:,6+gt*7)- mean(AFR)'  ).^2)/nsamples)*(1/(max(W_ang(:,6+gt*7)-min(W_ang(:,6+gt*7)))));  
         
 %             close all; clf; hold on
 %       

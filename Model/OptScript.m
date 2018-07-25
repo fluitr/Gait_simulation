@@ -19,7 +19,7 @@ functionName = 'OptFun_forward';
 % Copy to optfun!
 SetOptIC = 1; % Co-optimize initial conditions too (+1-11 param)
 paramIC_opt = 1;
-SetOptIMP = 1; % Co-optimize foot impedance settings (+3 param)
+SetOptIMP = 0; % Co-optimize foot impedance settings (+3 param)
 
 
 %% Setting resume options
@@ -70,11 +70,102 @@ while i_opts <= tot_run
         end
         if ~SetOptIMP && SetOptIC
             load('param_NMS_IC_IMP.mat');
-            load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\OptData_old\REF_LGW_1\Base_par2.mat')
-              load('param_02cm.mat');
-              param = [param(1:35);[1.3;0.5;0.5;0.5;-1.3;.5;.5;.5];param(36:end); 1];
+            load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\OptData_old\REF_LGW_1\Opt_par.mat')
+%           load('param_02cm.mat');
+            param = [param(1:35); param(44:end)];
+            sigma = [sigma(1:35); sigma(44:end)];
+            
+            load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\param\param_02cm.mat')
+            param(83) = 1.05;
+            param = [  3.4799
+    0.6876
+   -0.7359
+    0.2624
+   -0.2129
+   -0.0558
+    0.6449
+    1.8326
+    0.3084
+    1.3244
+    1.0133
+    2.1835
+    1.9981
+   -0.1213
+    1.6802
+   12.2180
+    0.8094
+    0.2599
+    1.1359
+    0.1055
+    0.5130
+    0.2687
+    1.4476
+    1.0105
+    2.0921
+    1.0011
+    2.0580
+    2.1713
+    1.1071
+   -0.8032
+   -1.8225
+    0.2042
+    0.4532
+   -0.7280
+    1.0504
+    8.7917
+   -0.5829
+   13.4136
+   -0.0490
+    8.4306
+   -0.1692
+   14.1140
+    3.2184
+    6.3167
+   -1.1655
+    0.3900
+    0.2950
+   -0.6901
+    1.5396
+    1.1666
+    0.3945
+    1.0520
+    0.9000
+    0.0087
+    1.9115
+   -0.7016
+   -0.9189
+   -0.0535
+   -4.7275
+    2.4964
+    0.0604
+    1.0870
+    9.8632
+   14.3313
+    0.7139
+    2.2606
+    2.7946
+    2.1971
+   -1.0055
+    0.3402
+    2.3960
+    0.9046
+    0.4230
+    0.8353
+    1.2821
+   -0.5653
+    2.9682
+   -0.8260
+   -0.0463
+    1.6418
+   -8.7055
+    3.5130
+    1.2578];
+
+%             keyboard
+%               param = [param(1:35);[1.3;0.5;0.5;0.5;-1.3;.5;.5;.5];param(36:end); 1];
 %               param = [param; 1];
-%             sigma = [sigma; 0.1];
+%              sigma = [sigma; 0.1];
+% % keyboard
         end
         if SetOptIMP && SetOptIC
 %             keyboard
@@ -82,8 +173,10 @@ while i_opts <= tot_run
             AnkleIMP = param(end-2:end);
             load('C:\Users\FluitR\Documents\Postdoc\Gaitsimulation\Gait_sim\Model\OptData_old\REF_LGW_1_test\Opt_par.mat')
             param = [param; AnkleIMP];
+            sigma = sigma * (1/3);
             sigma = [sigma; 1; 1; 0.05];
 %             param = param([1:90 90+paramIC_opt 102:104]);
+
         end
         x_zero = param;
     else
@@ -122,8 +215,8 @@ while i_opts <= tot_run
     end
         
     % Other options
-    opts.Noise.on = 1;
-    opts.PopSize = 25;
+    opts.Noise.on = 0;
+    opts.PopSize = 20;
     opts.SaveFilename = 'OptData/cmaes_var.mat';
     opts.LogFilenamePrefix ='OptData/cmaes_out';
     opts.LogPlot = 0;

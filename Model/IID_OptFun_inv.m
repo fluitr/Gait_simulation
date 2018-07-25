@@ -18,9 +18,7 @@ try
     Muscle_act = outputs.get('data').Values.muscle_act.Data';
     
     %% Loading Torques and Phase
-    load('HumanData/Torque_mat.mat')
-    load('HumanData/Torque_std_mat.mat')
-    load('HumanData/Phase_mat.mat')
+
     
     %% Extracting parameters
     % Healthy torques
